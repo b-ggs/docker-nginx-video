@@ -15,7 +15,7 @@ jobs:
         id: setup_docker_buildx_args
         run: |
           DOCKER_IMAGE=bxggs/nginx-video
-          DOCKER_PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+          DOCKER_PLATFORMS=linux/amd64,linux/arm64
 
           BRANCH=${GITHUB_REF#refs/heads/}
 
