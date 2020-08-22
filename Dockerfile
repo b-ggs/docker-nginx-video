@@ -22,22 +22,24 @@ ENV LUAJIT_LIB /usr/lib
 
 WORKDIR /nginx
 RUN ./configure --prefix=/usr/local/nginx \
-	--with-ld-opt="-Wl,-rpath,/usr/lib/libluajit-5.1.so" \
-	--add-module=../nginx-vod-module \
-	--add-module=../ngx_devel_kit \
-	--add-module=../nginx-lua-module \
-	--add-module=../nginx-thumb-module \
-	--add-module=../nginx-rtmp-module \
-	--with-file-aio \
-	--with-threads \
-	--with-cc-opt="-O3"
+  --with-ld-opt="-Wl,-rpath,/usr/lib/libluajit-5.1.so" \
+  --add-module=../nginx-vod-module \
+  --add-module=../ngx_devel_kit \
+  --add-module=../nginx-lua-module \
+  --add-module=../nginx-thumb-module \
+  --add-module=../nginx-rtmp-module \
+  --with-file-aio \
+  --with-threads \
+  --with-cc-opt="-O3"
 RUN make
 RUN make install
 
 FROM alpine:3.8
-RUN apk add --no-cache ca-certificates openssl pcre zlib luajit ffmpeg libjpeg-turbo
+
 COPY --from=build /usr/local/nginx /usr/local/nginx
 COPY nginx.conf /usr/local/nginx/conf/nginx.conf
-RUN rm -rf /usr/local/nginx/html /usr/loca/nginx/conf/*.default
-ENTRYPOINT ["/usr/local/nginx/sbin/nginx"]
-CMD ["-g", "daemon off;"]
+
+RUN apk add --no-cache ca-certificates openssl pcre zlib luajit ffmpeg libjpeg-turbo \
+  && rm -rf /usr/local/nginx/html /usr/local/nginx/conf/*.default
+
+CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
