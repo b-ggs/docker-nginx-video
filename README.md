@@ -1,4 +1,4 @@
-video-nginx
+nginx-video
 ===========
 
 This repository contains a Dockerfile for building nginx optimized for
@@ -13,7 +13,5 @@ video-delivery. It contains:
 - [nginx-vod-module](https://github.com/kaltura/nginx-vod-module) for
   on-the-fly video segmenting
 
-Please notice that in order to build this locally you need Docker 17.05.
-
 The image is available on Docker Hub:
-https://hub.docker.com/r/fsouza/video-nginx/.
+https://hub.docker.com/r/bxggs/nginx-video/.
