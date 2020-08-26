@@ -1,10 +1,8 @@
 name: buildx
-
 on:
   push:
     branches:
-      - "*"
-
+      - master
 jobs:
   buildx:
     runs-on: ubuntu-latest
